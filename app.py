@@ -3,6 +3,7 @@
 from flask import Flask, jsonify, request
 
 import data
+from external_routes import external_bp
 
 ALLOWED_FIELDS = {
     "barcode", "product_name", "brands", "ingredients_text", "price", "stock"
@@ -133,6 +134,8 @@ def create_app():
     def method_not_allowed(_error):
         """Return JSON when the wrong HTTP method is used."""
         return jsonify({"error": "Method not allowed"}), 405
+
+    app.register_blueprint(external_bp)
 
     return app
 
